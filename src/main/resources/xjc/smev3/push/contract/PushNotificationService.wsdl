@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="urn://x-artefacts-smev-gov-ru/smev/1.0" targetNamespace="urn://x-artefacts-smev-gov-ru/smev/1.0">
+    <wsdl:documentation>
+        -- ИС РНиП: Сервис PUSH-уведомлений СМЭВ-3 --
+    </wsdl:documentation>
+    <wsdl:types>
+        <xs:schema>
+            <xs:import namespace="urn://x-artefacts-smev-gov-ru/smev/1.0" schemaLocation="PushNotificationSchema.xsd"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="PushNotificationRequest">
+        <wsdl:part name="parameter" element="tns:PushNotificationRequest"/>
+    </wsdl:message>
+    <wsdl:message name="PushNotificationResponse">
+        <wsdl:part name="parameter" element="tns:PushNotificationResponse"/>
+    </wsdl:message>
+    <wsdl:message name="PushNotificationException">
+        <wsdl:part name="parameter" element="tns:PushNotificationException"/>
+    </wsdl:message>
+    <wsdl:portType name="PushNotificationType">
+        <wsdl:operation name="PushNotification">
+            <wsdl:input name="PushNotificationRequest" message="tns:PushNotificationRequest"/>
+            <wsdl:output name="PushNotificationResponse" message="tns:PushNotificationResponse"/>
+            <wsdl:fault name="PushNotificationException" message="tns:PushNotificationException"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="PushNotificationBinding" type="tns:PushNotificationType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="PushNotification">
+            <soap:operation soapAction=" PushNotification "/>
+            <wsdl:input name="PushNotificationRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="PushNotificationResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="PushNotificationException">
+                <soap:fault name="PushNotificationException" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="PushNotificationService">
+        <wsdl:port name="PushNotificationPort" binding="tns:PushNotificationBinding">
+            <soap:address location="ServiceAdress"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

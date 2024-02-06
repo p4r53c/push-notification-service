@@ -1,0 +1,44 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn://x-artefacts-smev-gov-ru/smev/1.0" targetNamespace="urn://x-artefacts-smev-gov-ru/smev/1.0" elementFormDefault="unqualified">
+    <xs:element name="PushNotificationRequest" type="tns:PushNotificationRequest"/>
+    <xs:complexType name="PushNotificationRequest">
+        <xs:sequence>
+            <xs:element name="PushNotification" type="tns:QueueNotificationInformation"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="QueueNotificationInformation">
+        <xs:sequence>
+            <xs:element name="InformationTimestamp" type="xs:dateTime"/>
+            <xs:element name="QueueInformation" type="tns:QueueInformation" form="qualified" nillable="true" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="QueueInformation">
+        <xs:sequence>
+            <xs:element name="QueueName">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="500"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="QueueSize" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="PushNotificationResponse" type="tns:PushNotificationResponse"/>
+    <xs:complexType name="PushNotificationResponse">
+        <xs:sequence>
+            <xs:element name="DescriptionResponse" type="tns:Description"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="PushNotificationException" type="tns:PushNotificationException"/>
+    <xs:complexType name="PushNotificationException">
+        <xs:sequence>
+            <xs:element name="DescriptionException" type="tns:Description"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Description">
+        <xs:sequence>
+            <xs:element name="Description" type="xs:string" form="qualified" nillable="true" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
